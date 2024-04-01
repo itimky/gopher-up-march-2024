@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	ordersdomain "github.com/itimky/gopher-up-march-2024/pkg/orders/domain"
-	"github.com/itimky/gopher-up-march-2024/pkg/sys"
 	mocks "github.com/itimky/gopher-up-march-2024/test/pkg/orders/domain"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
@@ -27,7 +26,6 @@ func (s *OrdersSuite) SetupSuite() {
 
 func (s *OrdersSuite) Test_CreateOrder() {
 	testErr := fmt.Errorf("test error")
-	orderID := "3"
 
 	testArgs := []struct {
 		name           string
@@ -48,7 +46,7 @@ func (s *OrdersSuite) Test_CreateOrder() {
 			dbParams: &ordersdomain.AddOrderParams{
 				ProductID: "1",
 				UserID:    "2",
-				OrderID:   "3",
+				OrderID:   testOrderID,
 				Quantity:  4,
 			},
 			dbErr: testErr,
@@ -61,12 +59,12 @@ func (s *OrdersSuite) Test_CreateOrder() {
 				Quantity:  4,
 			},
 			expectedResult: &ordersdomain.CreateOrderResult{
-				OrderID: "3",
+				OrderID: testOrderID,
 			},
 			dbParams: &ordersdomain.AddOrderParams{
 				ProductID: "1",
 				UserID:    "2",
-				OrderID:   "3",
+				OrderID:   testOrderID,
 				Quantity:  4,
 			},
 		},
@@ -80,7 +78,7 @@ func (s *OrdersSuite) Test_CreateOrder() {
 
 			orders := ordersdomain.NewOrders(s.dbMock)
 
-			ctx := sys.RandomIDToCtx(context.Background(), orderID)
+			ctx := context.WithValue(context.Background(), ordersdomain.RandomSeedKey{}, int64(0))
 			result, err := orders.CreateOrder(ctx, tt.params)
 
 			s.ErrorIs(err, tt.expectedErr)
