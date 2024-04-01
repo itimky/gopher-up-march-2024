@@ -1,0 +1,8 @@
+# https://vektra.github.io/mockery/latest/configuration/
+
+log-level: warn
+all: true
+dir: 'test/{{ replaceAll .InterfaceDirRelative "github.com/itimky/gopher-up-march-2024" "" }}'
+outpkg: mocks
+packages:
+  github.com/itimky/gopher-up-march-2024/pkg/orders/domain: {}
