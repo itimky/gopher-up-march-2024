@@ -38,9 +38,15 @@ classDiagram
             AddOrder(..)
         }
     }
+    namespace db-contract {
+        class Order {
+            
+        }
+    }
 
-    Handler --> CreateOrderV1
+    CreateOrderV1 <-- Handler
     HTTPDomainInterface --> OrdersModels
     OrdersModels <-- InMemDB
     OrdersDBInterface <|.. InMemDB
+    InMemDB --> Order
 ```
