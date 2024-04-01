@@ -6,3 +6,5 @@ dir: 'test/{{ replaceAll .InterfaceDirRelative "github.com/itimky/gopher-up-marc
 outpkg: mocks
 packages:
   github.com/itimky/gopher-up-march-2024/pkg/orders/domain: {}
+
+  github.com/itimky/gopher-up-march-2024/pkg/orders/http: {}
