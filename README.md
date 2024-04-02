@@ -53,3 +53,7 @@ classDiagram
     OrdersDBInterface <|.. InMemDB
     InMemDB --> Order
 ```
+
+### References
+
+🔗 [SOLID Go Design – by Dave Chaney](https://dave.cheney.net/2016/08/20/solid-go-design)
