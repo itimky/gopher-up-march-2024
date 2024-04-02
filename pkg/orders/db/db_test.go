@@ -1,6 +1,7 @@
 package ordersdb_test
 
 import (
+	"context"
 	"testing"
 
 	ordersdb "github.com/itimky/gopher-up-march-2024/pkg/orders/db"
@@ -33,7 +34,7 @@ func (s *InMemDBSuite) Test_AddOrder() {
 		s.Run(tt.name, func() {
 			inMemDB := ordersdb.NewInMemDB()
 
-			err := inMemDB.AddOrder(tt.params)
+			err := inMemDB.AddOrder(context.Background(), tt.params)
 
 			s.ErrorIs(tt.expectedErr, err)
 		})
