@@ -19,37 +19,42 @@ classDiagram
         class Handler {
             HandleCreateOrderV1(..)
         }
-        
+
         class HTTPDomainInterface["domain"] {
             <<interface>>
+            CreateOrder(ctx, CreateOrderParams)(*result, error)
         }
     }
     namespace orders {
         class Orders {
-            CreateOrder(..)
+            CreateOrder(ctx, CreateOrderParams)(*result, error)
         }
-        
-        class OrdersModels["models"] {
+
+        class CreateOrderParams {
+        }
+
+        class AddOrderParams {
         }
         
         class OrdersDBInterface["db"] {
             <<interface>>
+            AddOrder(ctx, AddOrderParams) error
         }
     }
     namespace orders-db {
         class InMemDB {
-            AddOrder(..)
+            AddOrder(ctx, AddOrderParams) error
         }
     }
     namespace db-contract {
         class Order {
-            
         }
     }
 
     CreateOrderV1 <-- Handler
-    HTTPDomainInterface --> OrdersModels
-    OrdersModels <-- InMemDB
+    HTTPDomainInterface --> CreateOrderParams
+    HTTPDomainInterface <|.. Orders
+    AddOrderParams <-- InMemDB
     OrdersDBInterface <|.. InMemDB
     InMemDB --> Order
 ```
